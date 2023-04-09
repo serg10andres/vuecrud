@@ -30,13 +30,17 @@
                 </div>
               </div>
               <div class="card-body">
+                <ul class="alert alert-warning" v-if="Object.keys(this.errorList).length > 0">
+                    <li class="mb-0 ms-3" v-for="(error, index) in this.errorList" :key="index">
+                        {{error[0] }}
+                    </li>
+                </ul>
+
                 <form class="text-start" @submit.prevent="login">
-   
                   <div class="input-group input-group-outline mb-3">
                     <input type="email" class="form-control" v-model="form.email" required autocomplete="email" autofocus placeholder="Email">
                         <span class="invalid-feedback" role="alert">
                         </span>
-                 
                   </div>
                   <div class="input-group input-group-outline mb-3">
                     <input type="password" class="form-control" name="password" v-model="form.password" required autocomplete="current-password" placeholder="Password">
@@ -52,7 +56,7 @@
                   </div>
                   <p class="mt-4 text-sm text-center">
                     Don't have an account?
-                    <a href="/register" class="text-primary text-gradient font-weight-bold">Sign up</a>
+                    <a href="/sign-up" class="text-primary text-gradient font-weight-bold">Sign up</a>
                   </p>
                 </form>
               </div>
@@ -69,6 +73,7 @@ import axios from 'axios';
 
 export default {
   data:() => ({
+    errorList: '',
     user: {},
     form: {
       email: 'sandresdiaz1997@gmail.com',
@@ -77,11 +82,17 @@ export default {
   }),
   methods: {
     login(){
+      var mythis = this;
       axios.post('http://127.0.0.1:8000/api/login', this.form).then((res) => {
         localStorage.setItem('token', res.data)
         this.$router.push('/posts');
       }).catch((errors) => {
-          this.errors = errors.response.data.errors
+        if (errors.response) {
+            if(errors.response.status == 422){
+                mythis.errorList = errors.response.data.errors;
+            }
+          } 
+          //this.errors = errors.response.data.errors
       })
       
     }

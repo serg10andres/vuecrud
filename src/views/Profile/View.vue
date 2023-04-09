@@ -3,10 +3,10 @@
     <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3   bg-gradient-dark" id="sidenav-main">
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
-      <RouterLink class="navbar-brand m-0" to="/">
+      <a class="navbar-brand m-0" href="#">
         <img src="@/assets_layout/img/logo-ct.png" class="navbar-brand-img h-100" alt="main_logo">
-        <span class="ms-1 font-weight-bold text-white">Material Dashboard 2</span>
-      </RouterLink>
+        <span class="ms-1 font-weight-bold text-white">Welcome!</span>
+      </a>
     </div>
     <hr class="horizontal light mt-0 mb-2">
     <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
@@ -92,7 +92,7 @@
         </nav>
         <!-- End Navbar -->
         <div class="container-fluid px-2 px-md-4">
-          <div class="page-header min-height-300 border-radius-xl mt-4" style="background-image: url('https://images.unsplash.com/photo-1531512073830-ba890ca4eba2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');">
+          <div class="page-header min-height-300 border-radius-xl mt-4" style="background-image: url('https://images.unsplash.com/photo-1531512073830-ba890ca4eba2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80')">
             <span class="mask  bg-gradient-primary  opacity-6"></span>
           </div>
           <div class="card card-body mx-3 mx-md-4 mt-n6">
@@ -108,7 +108,7 @@
                     {{ currentUser.name }}
                   </h5>
                   <p class="mb-0 font-weight-normal text-sm">
-                    Administrator
+                    Blogger
                   </p>
                 </div>
               </div>
@@ -128,7 +128,7 @@
                           <h6 class="mb-0">Profile Information</h6>
                         </div>
                         <div class="col-md-4 text-end">
-                          <RouterLink to="/">
+                          <RouterLink :to="{path: '/users/'+currentUser.id+'/edit'}">
                             <i class="fas fa-user-edit text-secondary text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Profile"></i>
                           </RouterLink>
                         </div>
@@ -140,22 +140,11 @@
                       </p>
                       <hr class="horizontal gray-light my-4">
                       <ul class="list-group">
-                        <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Full Name:</strong> &nbsp; Alec M. Thompson</li>
-                        <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Mobile:</strong> &nbsp; (44) 123 1234 123</li>
-                        <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Email:</strong> &nbsp; alecthompson@mail.com</li>
-                        <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Location:</strong> &nbsp; USA</li>
-                        <li class="list-group-item border-0 ps-0 pb-0">
-                          <strong class="text-dark text-sm">Social:</strong> &nbsp;
-                          <a class="btn btn-facebook btn-simple mb-0 ps-1 pe-2 py-0" href="javascript:;">
-                            <i class="fab fa-facebook fa-lg"></i>
-                          </a>
-                          <a class="btn btn-twitter btn-simple mb-0 ps-1 pe-2 py-0" href="javascript:;">
-                            <i class="fab fa-twitter fa-lg"></i>
-                          </a>
-                          <a class="btn btn-instagram btn-simple mb-0 ps-1 pe-2 py-0" href="javascript:;">
-                            <i class="fab fa-instagram fa-lg"></i>
-                          </a>
-                        </li>
+                        <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Full Name:</strong> &nbsp; {{currentUser.name}}</li>
+                        <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Mobile:</strong> &nbsp; {{currentUser.phone}}</li>
+                        <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Email:</strong> &nbsp; {{ currentUser.email }}</li>
+                        <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Location:</strong> &nbsp; {{ currentUser.location }}</li>
+                        
                       </ul>
                     </div>
                   </div>
