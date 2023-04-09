@@ -88,6 +88,8 @@
                     <label class="form-check-label" for="flexSwitchCheckDefault">Do you wish publish this post?</label>
                 </div>
 
+                
+
                 <div class="mb-3">
                     <button @click="savePost" class="btn btn-primary">Save</button>
                     <RouterLink to="/posts" class="btn btn-default">Back</RouterLink>
@@ -105,6 +107,8 @@ export default {
     name: 'postCreate',
     data(){
         return{
+            currentUser: {},
+            token: localStorage.getItem('token'),
             categories: {1: 'xxx', 2: 'www', 3: 'yyy', 4: 'zzz'},
             errorList: '',
             model:{
@@ -112,14 +116,24 @@ export default {
                     title: '',
                     category: '',
                     content: '',
-                    status: ''
+                    status: '',
+                    created_by: ''
                 }
             }
         }
     },
+    mounted(){
+      axios.defaults.headers.common['Authorization'] = `Bearer ${this.token}`
+      axios.get('http://127.0.0.1:8000/api/user').then(res =>{ 
+              this.currentUser = res.data
+          }).catch((errors)=>{
+            console.log(errors)
+          })  
+    },
     methods:  {
         savePost(){
             var mythis = this;
+            this.model.post.created_by = this.currentUser.id 
             axios.post('http://127.0.0.1:8000/api/posts', this.model.post)
             .then(res => {
                 console.log(res.data)
@@ -142,7 +156,8 @@ export default {
                     title: '',
                     category: '',
                     content: '',
-                    status: ''
+                    status: '',
+                    created_by: ''
                 }
                 this.errorList = ''
             })
